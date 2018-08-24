@@ -16,8 +16,14 @@ module ActiveAdminVersioning
 
         with_options only: :show do
           action_item :version do
-            link_to [:versions, active_admin_namespace, resource_instance_name] do
-              ::PaperTrail::Version.model_name.human
+            if active_admin_namespace != 'root'
+              link_to [:versions, active_admin_namespace, resource_instance_name] do
+                ::PaperTrail::Version.model_name.human
+              end
+            else
+              link_to [:versions, resource_instance_name] do
+                ::PaperTrail::Version.model_name.human
+              end
             end
           end
 
